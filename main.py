@@ -1,29 +1,29 @@
-import discord
 import os
-from discord import Message
+import discord
+import time
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
-
 TOKEN = os.getenv("DISCORD_TOKEN")
 
-class Client(discord.Client):
+class AsukaBot(commands.Bot):
+    def __init__(self):
+        intents = discord.Intents.default()
+        intents.message_content = True
+        super().__init__(command_prefix="!", intents=intents)
+
+        self.start_time = time.time()  
+        self.channel_id = None
+
+    async def setup_hook(self):
+        await self.load_extension("cogs.generalCommand")
+        await self.load_extension("cogs.adminCommand")
+        await self.load_extension("cogs.timeEvent")
+
     async def on_ready(self):
-        print(f"Logged in as {self.user}, Asuka ready!")
-    
-    async def on_message(self, message : Message):
-        if message.author == client.user:
-            return
-        
-        if message.content.startswith("Hello"):
-            await message.channel.send(f'Hi there @{message.author} good to see you:)')
+        print(f"Logged in as {self.user}")
 
-        print(f"Message from @{message.author} from channel {message.channel} : {message.content}")
-
-intents = discord.Intents.default()
-intents.message_content = True
-
-client = Client(intents=intents)
-client.run(TOKEN)
-
-
+if __name__ == "__main__":
+    asuka = AsukaBot()
+    asuka.run(TOKEN)
