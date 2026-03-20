@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord.ext.commands import Context
+from discord.ext.commands import Context, ExtensionNotLoaded
 
 class AdminCommands(commands.Cog):
     """ Admin commands for Asuka """
@@ -8,7 +8,7 @@ class AdminCommands(commands.Cog):
         self.bot = bot
 
     """
-    Reload spesific cog
+    Reload or load spesific cog
     """
     @commands.command(name="reload")
     @commands.is_owner() 
@@ -20,6 +20,13 @@ class AdminCommands(commands.Cog):
         try:
             await self.bot.reload_extension(f"cogs.{cog}")
             await ctx.send(f"Successfully reloaded {cog}")
+        except ExtensionNotLoaded:
+            await ctx.send(f"Umm so u havent even loaded {cog} yet x-x, ill try to load it")
+            try:
+                await self.bot.load_extension(f"cogs.{cog}")
+                await ctx.send(f"Successfully loaded {cog}")
+            except Exception as e:
+                await ctx.send(f"Failed to load \"{cog}\": {e}")
         except Exception as e:
             await ctx.send(f"Failed to reload \"{cog}\": {e}")
 
