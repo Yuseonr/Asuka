@@ -35,6 +35,9 @@ class SignalHandler(commands.Cog):
     Asuka start web server and listen for incoming messages 
     """
     async def cog_load(self):
+        if self.runner:
+            print("Already running _-")
+            return
         app = web.Application()
         app.add_routes([web.post('/signal', self.handle_proses_signal)])
         self.runner = web.AppRunner(app)
@@ -49,6 +52,8 @@ class SignalHandler(commands.Cog):
     async def cog_unload(self):
         if self.runner:
             await self.runner.cleanup()
+            self.runner = None
+            self.site = None
             print("Shutdown signal handler server")
 
     #************************ Helper Function wok for parsing and shi ************************#
