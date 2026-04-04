@@ -1,4 +1,4 @@
-from persona import ASUKA_PERSONA
+from services.simple_ai import ASUKA_PERSONA
 from dotenv import load_dotenv
 from google import genai
 import os
