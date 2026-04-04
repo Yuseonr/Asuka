@@ -52,7 +52,7 @@ class AdminCommands(commands.Cog):
         errors = []
 
         for filename in os.listdir(physical_path):
-            if filename.endswith(".py") and not filename.startswith("__"):
+            if filename.endswith(".py"):
                 module_name = filename[:-3]
                 full_module_path = f"services.{service}.{module_name}"
 
