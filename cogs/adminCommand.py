@@ -34,7 +34,7 @@ class AdminCommands(commands.Cog):
             await ctx.send(f"Failed to reload \"{cog}\": {e}")
     
     """
-    Reload Service {currently only simple_ai} reload all file in folder of the spesified service
+    Reload Service {currently only simple_ai} - reload all file in folder of the spesified service
     """
     @commands.command(name="reload_service")
     @commands.is_owner()
@@ -52,7 +52,7 @@ class AdminCommands(commands.Cog):
         errors = []
 
         for filename in os.listdir(physical_path):
-            if filename.endswith(".py"):
+            if filename.endswith(".py") and not filename.startswith("__"):
                 module_name = filename[:-3]
                 full_module_path = f"services.{service}.{module_name}"
 

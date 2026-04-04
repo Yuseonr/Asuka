@@ -1,5 +1,5 @@
 from discord.ext import commands
-from services.simple_ai import asuka_response
+from services.simple_ai.gemini import asuka_response
 
 class messageHandler(commands.Cog):
     """ Handle incoming message for Asuka """
