@@ -22,6 +22,7 @@ class AsukaBot(commands.Bot):
         await self.load_extension("cogs.adminCommand")
         await self.load_extension("cogs.timeEvent")
         await self.load_extension("cogs.signalHandler")
+        await self.load_extension("cogs.messageHandler")
 
     async def on_ready(self):
         print(f"Logged in as {self.user}")
